@@ -1,0 +1,13 @@
+body{
+    background-image: url("https://www.nlspacecampus.eu/cache/3/1920x1080/mob-shutterstock-481251031-20210610135721_1920x1080.jpg");
+}
+
+.title{
+    text-align: center;
+    color: white;
+}
+
+.gamesBlock{
+    display: inline-flex;
+    margin: 0.6rem;
+}
