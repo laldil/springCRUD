@@ -6,8 +6,22 @@ body{
     text-align: center;
     color: white;
 }
-
 .gamesBlock{
     display: inline-flex;
     margin: 0.6rem;
+    border: #444445;
+}
+.card-body{
+    padding: 0;
+    background: #444445;
+}
+.card-text{
+    color: white;
+    margin: 0;
+}
+.gamesBlockLink{
+    text-decoration: none;
+}
+.gamesBlockLink:hover{
+    opacity: 0.8;
 }

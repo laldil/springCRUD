@@ -17,10 +17,13 @@
     <section style="margin: 3rem; text-align: center">
         <h2 class="title">Games</h2>
         <div class="card h-100 gamesBlock" style="width: 18rem;" th:each="game : ${games}">
-            <img class="card-img-top" th:src="${game.img}">
-            <div class="card-body">
-                <p class="card-text" th:text="${game.name}"></p>
-            </div>
+            <a class="gamesBlockLink" th:href="'/game/' + ${game.id}">
+                <img class="card-img-top" th:src="${game.img}">
+                <div class="card-body">
+                    <p class="card-text" th:text="${game.name}"></p>
+                    <p class="card-text" th:text="${game.price} + ' $'" style="color: yellowgreen;"></p>
+                </div>
+            </a>
         </div>
     </section>
 </body>
