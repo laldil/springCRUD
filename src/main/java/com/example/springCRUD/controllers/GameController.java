@@ -36,9 +36,10 @@ public class GameController {
         if(!gameRepository.existsById(id)) return "redirect:/game";
 
         Optional<GameModel> game = gameRepository.findById(id);
-        ArrayList<GameModel> result =new ArrayList<>();
+        ArrayList<GameModel> result = new ArrayList<>();
         game.ifPresent(result :: add);
         model.addAttribute("game", result);
+        model.addAttribute("title", result.get(0).getName());
         return "gameBlog";
     }
 
@@ -48,6 +49,17 @@ public class GameController {
         return "create";
     }
 
+    @GetMapping("/game/{id}/edit")
+    public String editPage(@PathVariable(value = "id") long id, Model model){
+        if(!gameRepository.existsById(id)) return "redirect:/game";
+        Optional<GameModel> game = gameRepository.findById(id);
+        ArrayList<GameModel> result = new ArrayList<>();
+        game.ifPresent(result :: add);
+        model.addAttribute("game", result);
+        model.addAttribute("title", "Edit");
+        return "edit";
+    }
+
     @PostMapping("/game/create")
     public String createGame(@RequestParam(value = "name") String name,
                              @RequestParam(value = "description") String description,
@@ -55,6 +67,27 @@ public class GameController {
                              @RequestParam(value = "price") Double price){
         GameModel game = new GameModel(name, description, img, price);
         gameRepository.save(game);
+        return "redirect:/game";
+    }
+
+    @PostMapping("/game/{id}/edit")
+    public String editGame(@PathVariable(value = "id") long id, Model model,
+                           @RequestParam(value = "name") String name,
+                           @RequestParam(value = "description") String description,
+                           @RequestParam(value = "img") String img,
+                           @RequestParam(value = "price") Double price){
+        GameModel game = gameRepository.findById(id).orElseThrow();
+        game.setDescription(description);
+        game.setName(name);
+        game.setImg(img);
+        game.setPrice(price);
+        gameRepository.save(game);
+        return "redirect:/game/" + id;
+    }
+
+    @PostMapping("game/{id}/delete")
+    public String deleteGame(@PathVariable(value = "id") long id){
+        gameRepository.deleteById(id);
         return "redirect:/game";
     }
 }

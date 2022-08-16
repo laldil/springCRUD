@@ -14,14 +14,14 @@
     <!--Navbar-->
     <section th:insert="partials/navbar :: navbar"></section>
     <!--Main section-->
-    <section style="margin: 3rem; text-align: center">
-        <h2 class="title">Add new game</h2>
-        <form action="/game/create" method="POST">
-            <input type="text" name="name" placeholder="Enter the name">
-            <textarea type="text" name="description" placeholder="Enter the description"></textarea>
-            <input type="text" name="img" placeholder="Enter url-link">
-            <input type="number" step="0.01" name="price" placeholder="Enter the price">
-            <button type="submit">Create</button>
+    <section th:each="game : ${game}" style="margin: 3rem; text-align: center">
+        <h2 class="title" th:text="'Edit ' + ${game.name}"></h2>
+        <form th:action="'/game/' + ${game.id} + '/edit'" method="POST">
+            <input th:value="${game.name}" type="text" name="name" placeholder="Enter the name">
+            <textarea th:text="${game.description}" type="text" name="description" placeholder="Enter the description"></textarea>
+            <input th:value="${game.img}" type="text" name="img" placeholder="Enter url-link">
+            <input th:value="${game.price}" type="number" step="0.01" name="price" placeholder="Enter the price">
+            <button type="submit">Edit</button>
         </form>
     </section>
 </body>
